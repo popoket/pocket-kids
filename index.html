@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f6ff">
+<meta name="description" content="포켓몬 이름 퀴즈, 타입별 뱃지, 포켓몬 도감 수집 게임">
+<title>포켓몬 척척박사 - 퀴즈와 나만의 도감</title>
+<style>
+:root{--ink:#26334e;--sub:#72809c;--blue:#4766ef;--edge:#e5e9f5;--light:#f3f6ff;--ok:#15996c;--bad:#d94d65;--paper:#fff}
+*{box-sizing:border-box}html{background:#f5f7fd}body{margin:0;padding:14px 12px 48px;color:var(--ink);background:radial-gradient(ellipse 85% 30% at 30% 0,#e4eaff,transparent),#f7f8fd;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;min-height:100vh;-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #8ea1ff;outline-offset:2px}img{user-select:none;-webkit-user-drag:none}
+.shell{max-width:635px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:3px 1px 17px}.brand{display:flex;align-items:center;gap:9px;cursor:pointer;background:none;border:0;text-align:left;color:inherit;padding:0}.logo{position:relative;display:block;width:44px;height:44px;flex:none;border-radius:50%;border:3px solid #26334e;background:linear-gradient(to bottom,#fa6071 0 46%,#26334e 46% 55%,white 55%);box-shadow:0 5px 15px #24346b2b}.logo:after{content:"";position:absolute;top:14px;left:14px;width:11px;height:11px;border-radius:50%;border:3px solid #26334e;background:white}.brand h1{font-size:21px;line-height:1.17;margin:0;font-weight:950;letter-spacing:-.8px}.brand span{font-size:11.5px;color:var(--sub);font-weight:750}.sound{border:1px solid var(--edge);background:#fff;border-radius:12px;padding:9px 10px;font-size:12px;font-weight:850;color:#4b5872}
+.sheet{border:1px solid var(--edge);background:var(--paper);border-radius:25px;padding:20px;box-shadow:0 12px 36px #24387812;margin:12px 0}.hero{background:linear-gradient(130deg,#3f5cda,#687cef);color:white;border:none;box-shadow:0 15px 28px #355add35;overflow:hidden;position:relative}.hero:before,.hero:after{content:"";position:absolute;width:160px;height:160px;border:35px solid #ffffff16;border-radius:50%;right:-80px;top:-100px}.hero:after{width:80px;height:80px;border:16px solid #ffffff16;right:90px;bottom:-90px;top:auto}.hero h2{margin:0 0 8px;font-size:25px;font-weight:1000;line-height:1.3;letter-spacing:-1px}.hero p{font-size:14px;opacity:.9;margin:0 0 16px;line-height:1.6}.hero .counts{display:flex;gap:9px;flex-wrap:wrap}.hero .counter-pill{padding:8px 10px;border-radius:14px;background:#ffffff23;font-weight:800;font-size:12.5px;backdrop-filter:blur(4px)}.hero .counter-pill b{font-size:18px;margin-right:3px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.section-head h2{font-size:20px;letter-spacing:-.6px;margin:0;font-weight:950}.section-head p{font-size:12px;color:var(--sub);margin:3px 0 0}.subaction{border:0;background:#edf1ff;color:#4a62d3;padding:9px 11px;font-size:12px;font-weight:850;border-radius:11px;white-space:nowrap}.dex-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.dex-tile{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0;border-radius:15px;border:1px solid #e9ecf5;background:linear-gradient(#f5f8ff,#fff);padding:9px 4px 8px;min-height:111px;color:var(--ink)}.dex-tile.owned{border-color:#b8c8ff;background:linear-gradient(#f0f5ff,#fff)}.dex-tile .number{font-size:9px;color:#8b98af;align-self:flex-start;padding-left:3px;font-weight:800}.dex-tile .sprite{height:60px;width:100%;object-fit:contain;filter:drop-shadow(0 5px 4px #31456c22)}.dex-tile.locked .sprite{filter:brightness(0) saturate(0) opacity(.57);transform:scale(.87)}.dex-tile .pname{font-size:11px;font-weight:950;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;margin-top:3px}.dex-tile.locked .pname{letter-spacing:2px;color:#9ba6bc}.rarity-dot{position:absolute;top:7px;right:6px;font-size:11px}.dex-meter{height:9px;border-radius:30px;background:#edf0fb;overflow:hidden;margin:12px 0 2px}.dex-meter div{height:100%;width:0;background:linear-gradient(90deg,#6f8dff,#5573ee);transition:width .5s}.full-link{width:100%;margin-top:14px;border:1.5px solid #c8d3ff;background:#f4f6ff;border-radius:14px;color:#4960d6;font-weight:900;min-height:45px}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mode{border-radius:19px;padding:18px 13px;text-align:left;min-height:155px;display:flex;flex-direction:column;align-items:flex-start;border:2px solid transparent;background:#eef2ff;color:#324ac7}.mode.type{background:#fff4e7;color:#b35f2d}.mode-emoji{font-size:36px;line-height:1.2}.mode strong{font-size:18px;font-weight:950;margin-top:9px}.mode small{font-size:12px;line-height:1.45;opacity:.8;margin-top:5px;font-weight:750}.badge-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.badge{display:flex;flex-direction:column;align-items:center;gap:3px;background:#f7f8fd;border:1.5px solid #e9edf7;padding:8px 3px;border-radius:14px;color:#a1a9ba;min-height:65px}.badge .em{font-size:23px;filter:grayscale(1);opacity:.4}.badge strong{font-size:10px}.badge.earned{border-color:var(--tcolor);background:var(--tbg);color:var(--ink)}.badge.earned .em{filter:none;opacity:1}
+.headline{display:flex;align-items:center;gap:10px;margin:0 0 16px}.back{border:0;background:#f1f3fa;color:#536581;border-radius:12px;font-size:16px;min-height:43px;padding:0 13px;font-weight:900}.headline h2{margin:0;font-size:21px;font-weight:950;letter-spacing:-.5px}.lead{margin:0 0 19px;color:var(--sub);font-size:14px;line-height:1.6}.field{margin-bottom:20px}.label{display:block;font-size:14px;font-weight:900;margin-bottom:10px}.segments{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.segments.two{grid-template-columns:1fr 1fr}.seg{border:2px solid #edf0f8;background:#f9faff;color:#66748d;border-radius:14px;min-height:56px;padding:10px 5px;font-size:14px;font-weight:900}.seg.selected{border-color:#7489f3;color:#405bd2;background:#eef2ff}.seg small{display:block;font-size:10px;font-weight:650;margin-top:3px}.primary{width:100%;min-height:59px;border:0;border-radius:16px;font-weight:950;font-size:17px;background:linear-gradient(120deg,#4968ee,#536ef3);color:white;box-shadow:0 7px 16px #5673ef34}.outline{background:white;border:2px solid #dee5f5;color:#5363a1;border-radius:15px;min-height:50px;font-weight:900}.fine{font-size:12px;color:#8894a8;line-height:1.55;text-align:center;margin:12px 0 0}
+.types-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.type-tile{border:2px solid transparent;background:var(--tbg);color:var(--ink);border-radius:16px;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}.type-tile b{font-size:15px}.type-tile .em{font-size:28px}.type-tile small{font-size:10px;color:#67738a;font-weight:750}.type-tile.earned{border-color:var(--tcolor)}
+.hud{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 10px;font-size:15px;font-weight:950}.hscore{color:#d49112}.bar{height:10px;border-radius:30px;background:#e8ecfa;overflow:hidden;margin-bottom:12px}.bar div{height:100%;background:linear-gradient(90deg,#6381f3,#4f6af1);width:0;transition:width .3s}.qchip{font-size:12px;font-weight:900;color:#5169d4;border-radius:20px;background:#eef2ff;padding:7px 12px;display:inline-block}.qtitle{font-weight:1000;font-size:22px;letter-spacing:-.6px;text-align:center;margin:12px 0}.qtop{text-align:center}.art{height:245px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#eaf0ff 0%,#f8faff 65%,white 68%);border-radius:23px;margin:9px 0 15px;position:relative}.art:after{content:"";position:absolute;border-radius:50%;background:#e7edff;width:200px;height:200px;z-index:0}.art img{position:relative;z-index:1;max-width:90%;height:227px;object-fit:contain;filter:drop-shadow(0 10px 6px #263c6a29)}.art.yay img{animation:winjump .55s ease-in-out}.art .loading{position:absolute;bottom:11px;z-index:2;font-size:11px;color:#7d8ca7}.choices{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choice{border:2px solid #e2e7f3;border-radius:16px;background:white;color:#34435e;min-height:65px;padding:9px 6px;font-size:16px;line-height:1.35;word-break:keep-all;font-weight:900}.choice.good{border-color:#42c186;background:#e7f8ef;color:#176749}.choice.bad{border-color:#ef8f9c;background:#ffedf0;color:#b63d52}.choice:disabled{cursor:default}.feed{border-radius:13px;background:#f1f5ff;margin:12px 0;padding:13px;text-align:center;font-size:14px;font-weight:900;line-height:1.55}.feed.yes{background:#e7f8ef;color:#196c4c}.feed.no{background:#fff1f3;color:#b64d62}.hint{display:block;width:100%;background:none;border:0;color:#6b7ed6;font-weight:900;padding:13px 4px}.game-next{margin-top:10px}
+.finish-emoji{text-align:center;font-size:62px;margin:7px 0 9px}.finish-title{text-align:center;font-size:25px;font-weight:1000;letter-spacing:-.7px;margin:0}.finish-score{text-align:center;font-size:40px;color:#4967e9;font-weight:1000;margin:9px}.finish-note{text-align:center;font-size:14px;color:var(--sub);line-height:1.6}.reward{margin:19px 0;border:2px solid #f5df9b;background:radial-gradient(circle at 50% 10%,#fff3bf,#fffaf0 67%);border-radius:23px;padding:18px;text-align:center;animation:reveal .55s ease-out}.reward.premium{background:radial-gradient(circle at 50% 5%,#f8dbff,#ede8ff 72%);border-color:#bb8cfc}.reward-label{font-size:13px;color:#af7827;font-weight:950}.reward.premium .reward-label{color:#8941c8}.reward img{width:min(210px,80%);height:177px;object-fit:contain;display:block;margin:3px auto;animation:float 2.5s ease-in-out infinite;filter:drop-shadow(0 12px 8px #8f7a6029)}.reward strong{font-size:23px;font-weight:1000}.reward p{font-size:12px;color:#916b36;margin:6px}.reward button{border:0;background:#fff9;border-radius:12px;padding:10px 15px;color:#7856ad;font-weight:900;margin-top:7px}.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.result-actions .primary{font-size:14px;min-height:54px}.result-actions .outline{font-size:14px}
+.dex-filter{display:flex;gap:6px;margin-bottom:13px;overflow-x:auto}.filter{padding:10px 12px;border-radius:12px;border:1px solid #e2e7f5;background:#f9faff;white-space:nowrap;color:#6b7891;font-size:12px;font-weight:900}.filter.on{color:#4860d5;border-color:#89a1ef;background:#eef2ff}.dex-stats{font-size:12px;color:var(--sub);margin:0 0 12px}.dex-all{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.dex-all .dex-tile{min-height:119px}.dex-all .sprite{height:67px}.empty{text-align:center;padding:25px;color:var(--sub);grid-column:1/-1}
+.overlay{position:fixed;inset:0;background:#0f1a38b5;z-index:20;display:flex;align-items:center;justify-content:center;padding:17px;backdrop-filter:blur(5px)}.modal{width:min(420px,100%);max-height:90dvh;overflow-y:auto;background:white;border-radius:26px;padding:20px;position:relative;box-shadow:0 22px 70px #07102d6f}.close{position:absolute;right:15px;top:13px;width:35px;height:35px;border-radius:50%;border:0;background:#edf1fa;color:#5d6b83;font-size:20px;font-weight:900;z-index:10}.detail-number{color:#8090ae;font-size:13px;font-weight:900}.detail-name{font-size:27px;letter-spacing:-1px;font-weight:1000;margin:3px 0 5px}.detail-tags{display:flex;gap:6px;flex-wrap:wrap}.type-pill{border-radius:14px;padding:6px 10px;font-weight:900;font-size:12px;background:var(--tbg);color:var(--tcolor)}.stage{margin:14px 0 5px;min-height:265px;position:relative;display:flex;align-items:center;justify-content:center;border-radius:20px;background:radial-gradient(circle at center,var(--aura,#eaf0ff),#fff 70%);overflow:hidden;isolation:isolate}.stage .ring{border:4px solid #ffffffb9;border-radius:50%;width:205px;height:205px;position:absolute;box-shadow:0 0 20px var(--aura,#dce6ff)}.stage img{max-width:80%;height:235px;object-fit:contain;z-index:2;animation:float 2.5s ease-in-out infinite;filter:drop-shadow(0 12px 7px #142a5b30)}.stage.attack img{animation:pounce 1s ease-in-out}.stage.attack .ring{animation:ringflash 1s ease-in-out}.particle{position:absolute;z-index:4;left:50%;top:53%;font-size:var(--size,29px);pointer-events:none;animation:particle var(--dur,1s) ease-out forwards;filter:drop-shadow(0 1px 4px #fff)}.blast{position:absolute;z-index:3;width:165px;height:165px;left:calc(50% - 82px);top:calc(50% - 82px);border-radius:50%;border:9px solid var(--fx,#7188ff);opacity:0;animation:shock .8s ease-out forwards}.move-title{text-align:center;font-weight:1000;font-size:18px;margin:9px 0 3px}.move-sub{text-align:center;font-size:12px;color:var(--sub);margin:0 0 12px}.fight{background:linear-gradient(110deg,#677bec,#4967ef);margin-top:12px}.leg-tag{font-size:12px;color:#a65bcd;font-weight:950;margin-top:7px}.legal{font-size:11px;line-height:1.7;color:#96a0b3;text-align:center;margin:15px 4px}.hidden{display:none!important}
+@keyframes winjump{0%,100%{transform:translateY(0)}40%{transform:translateY(-19px) scale(1.06)}70%{transform:rotate(5deg)}}@keyframes float{0%,100%{transform:translateY(5px) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}@keyframes pounce{0%{transform:scale(1) translateY(0)}20%{transform:scale(.82) translateX(-12px)}47%{transform:scale(1.2) translateX(16px) translateY(-15px) rotate(-8deg)}70%{transform:scale(1.08) rotate(7deg)}100%{transform:scale(1) translateY(0)}}@keyframes ringflash{0%,100%{transform:scale(1);opacity:.7}45%{transform:scale(1.25);opacity:1}}@keyframes particle{0%{transform:translate(-50%,-50%) scale(.35) rotate(0deg);opacity:1}45%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.3) rotate(var(--r));opacity:0}}@keyframes shock{0%{transform:scale(.15);opacity:1}100%{transform:scale(2.1);opacity:0}}@keyframes reveal{from{transform:scale(.8) translateY(25px);opacity:.2}to{transform:scale(1) translateY(0);opacity:1}}
+@media(max-width:390px){.sheet{padding:16px}.brand h1{font-size:18px}.mode{padding:14px 10px}.mode strong{font-size:16px}.dex-grid,.dex-all{gap:6px}.dex-tile{padding:7px 2px;min-height:104px}.dex-tile .sprite{height:57px}.badge-strip{gap:5px}.badge strong{font-size:9px}.art{height:216px}.art img{height:195px}.art:after{width:175px;height:175px}.choice{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><button class="brand" id="brand" aria-label="처음 화면으로"><span class="logo"></span><span><h1>포켓몬 척척박사!</h1><span>맞히고 · 뱃지 받고 · 도감 완성!</span></span></button><button id="sound" class="sound" type="button">🔇 소리 끔</button></header>
+<main>
+<section id="home">
+<div class="sheet hero"><h2>🌟 나만의 포켓몬 모험!</h2><p>퀴즈를 풀고 친구들을 모아 봐!<br>가끔은 엄청 희귀한 전설의 포켓몬도 등장해.</p><div class="counts"><div class="counter-pill">📖 도감 <b id="homeOwned">0</b><span id="homeTotal">/ 0</span></div><div class="counter-pill">🏅 뱃지 <b id="homeBadges">0</b>/ 18</div><div class="counter-pill">🎮 성공 <b id="homeWins">0</b>번</div></div></div>
+<div class="sheet"><div class="section-head"><div><h2>📖 나만의 포켓몬 도감</h2><p>회색 그림자는 아직 만나지 못한 친구야!</p></div><button class="subaction" id="allDex">전체 보기 →</button></div><div id="homeDex" class="dex-grid"></div><div class="dex-meter"><div id="homeMeter"></div></div><button class="full-link" id="openDex">내 도감 전부 살펴보기</button></div>
+<div class="sheet"><div class="section-head"><div><h2>🎮 어떤 모험을 할까?</h2><p>두 가지 방법으로 모험할 수 있어.</p></div></div><div class="mode-grid"><button id="generalGo" class="mode"><span class="mode-emoji">🎁</span><strong>일반 퀴즈</strong><small>10문제 중 7개 이상 정답이면 포켓몬 1마리 획득!</small></button><button id="typeGo" class="mode type"><span class="mode-emoji">🏅</span><strong>타입 도전</strong><small>불꽃·물 등 18개 타입에 도전하고 뱃지 모으기!</small></button></div></div>
+<div class="sheet"><div class="section-head"><div><h2>🏅 나의 타입 뱃지</h2><p>10문제 중 7개를 맞히면 뱃지 획득!</p></div><button class="subaction" id="allTypes">도전하기 →</button></div><div id="homeBadgeGrid" class="badge-strip"></div></div>
+</section>
+<section id="setup" class="hidden sheet"><div class="headline"><button class="back" data-home>←</button><h2>🎁 일반 퀴즈 준비</h2></div><p class="lead">10문제를 풀어 7개 이상 맞히면 <b>새 포켓몬 1마리</b>를 받을 수 있어!<br>전설의 포켓몬이 나올 수도 있지!</p><div class="field"><span class="label">🌟 난이도</span><div id="difficulty" class="segments two"><button class="seg selected" data-val="easy">😊 쉬움<small>친숙한 포켓몬</small></button><button class="seg" data-val="all">🔥 도전<small>다양한 포켓몬</small></button></div></div><div class="field"><span class="label">🧠 문제 종류</span><div id="quizMode" class="segments"><button class="seg selected" data-val="name">이름 맞히기</button><button class="seg" data-val="type">타입 맞히기</button><button class="seg" data-val="mix">섞어서</button></div></div><button class="primary" id="generalStart">퀴즈 시작! 🚀</button><p class="fine">힌트를 써도 정답으로 인정해! 포켓몬은 중복 없이 지급돼.</p></section>
+<section id="types" class="hidden sheet"><div class="headline"><button class="back" data-home>←</button><h2>🏅 타입 뱃지 모험</h2></div><p class="lead">도전할 타입을 골라 봐. 해당 타입의 포켓몬 <b>이름을 맞히는 10문제</b>가 나와. <b>7문제 이상</b> 맞히면 그 타입의 뱃지를 획득해!</p><div id="typesGrid" class="types-grid"></div></section>
+<section id="game" class="hidden"><div class="hud"><span id="countLabel">1 / 10</span><span class="hscore" id="scoreLabel">⭐ 0점</span></div><div class="bar"><div id="gameBar"></div></div><div class="sheet"><div class="qtop"><span id="questionTag" class="qchip">이름 맞히기</span></div><h2 id="questionTitle" class="qtitle">이 친구는 누구일까?</h2><div id="quizArt" class="art"><img id="quizImage" alt="그림을 보고 맞혀 볼 포켓몬"><span id="imageLoad" class="loading">그림을 불러오는 중...</span></div><div id="choiceGrid" class="choices"></div><button id="hint" class="hint">💡 힌트 보기</button><div id="feedback" class="feed hidden"></div><button id="next" class="primary game-next hidden">다음 문제 →</button></div></section>
+<section id="finish" class="hidden sheet"><div id="finishEmoji" class="finish-emoji">🏆</div><h2 id="finishTitle" class="finish-title">참 잘했어!</h2><div id="finishScore" class="finish-score">7 / 10</div><p id="finishNote" class="finish-note"></p><div id="rewardSlot"></div><div id="reviewSlot"></div><div class="result-actions"><button class="outline" id="resultHome">도감 보러 가기</button><button class="primary" id="resultRetry">다시 도전! 🎉</button></div></section>
+<section id="dex" class="hidden sheet"><div class="headline"><button class="back" data-home>←</button><h2>📖 나만의 포켓몬 도감</h2></div><p id="dexStats" class="dex-stats"></p><div id="dexFilters" class="dex-filter"><button class="filter on" data-filter="all">전체</button><button class="filter" data-filter="owned">획득</button><button class="filter" data-filter="locked">미획득</button></div><div id="fullDexGrid" class="dex-all"></div><p class="fine">포켓몬을 획득하면 눌러서 기술 애니메이션을 볼 수 있어!</p></section>
+</main>
+<p class="legal">그림: PokéAPI official-artwork (인터넷 필요) · 점수와 도감은 이 기기의 브라우저에 저장됩니다.<br>비공식 개인 학습용 팬 게임이며 원작자·포켓몬 컴퍼니와 무관합니다. 애니메이션은 게임을 위해 제작한 타입별 연출입니다.</p>
+</div>
+<div id="detailOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-label="포켓몬 상세 정보"><div class="modal"><button class="close" id="detailClose" aria-label="닫기">×</button><div id="detailNum" class="detail-number"></div><h2 id="detailName" class="detail-name"></h2><div id="detailTags" class="detail-tags"></div><div id="detailLegend" class="leg-tag"></div><div class="stage" id="battleStage"><div class="ring"></div><img id="detailImage" alt="나의 포켓몬"></div><div class="move-title" id="detailMove">⚡ 10만볼트!</div><p class="move-sub" id="detailMoveSub">움직이는 포켓몬을 만져 봐!</p><button class="primary fight" id="attack">✨ 특징 기술 사용하기!</button><p class="fine">움직임과 효과는 이 게임에서 만든 애니메이션이에요.</p></div></div>
+<script id="pokemonRows" type="text/plain">1|이상해씨|풀/독|1
+2|이상해풀|풀/독|0
+3|이상해꽃|풀/독|1
+4|파이리|불꽃|1
+5|리자드|불꽃|0
+6|리자몽|불꽃/비행|1
+7|꼬부기|물|1
+8|어니부기|물|0
+9|거북왕|물|1
+10|캐터피|벌레|1
+12|버터플|벌레/비행|1
+15|독침붕|벌레/독|0
+16|구구|노말/비행|1
+19|꼬렛|노말|0
+20|레트라|노말|0
+21|깨비참|노말/비행|0
+22|깨비드릴조|노말/비행|0
+25|피카츄|전기|1
+26|라이츄|전기|1
+27|모래두지|땅|0
+35|삐삐|페어리|0
+37|식스테일|불꽃|1
+38|나인테일|불꽃|0
+39|푸린|노말/페어리|1
+41|주뱃|독/비행|0
+43|뚜벅쵸|풀/독|1
+46|파라스|벌레/풀|0
+47|파라섹트|벌레/풀|0
+50|디그다|땅|1
+52|나옹|노말|1
+54|고라파덕|물|1
+56|망키|격투|0
+57|성원숭|격투|0
+58|가디|불꽃|1
+59|윈디|불꽃|0
+63|캐이시|에스퍼|0
+66|알통몬|격투|0
+67|근육몬|격투|0
+68|괴력몬|격투|0
+74|꼬마돌|바위/땅|1
+79|야돈|물/에스퍼|1
+81|코일|전기/강철|0
+87|쥬레곤|물/얼음|0
+91|파르셀|물/얼음|0
+92|고오스|고스트/독|1
+93|고우스트|고스트/독|0
+94|팬텀|고스트/독|1
+95|롱스톤|바위/땅|1
+104|탕구리|땅|0
+106|시라소몬|격투|0
+107|홍수몬|격투|0
+109|또가스|독|0
+113|럭키|노말|1
+120|별가사리|물|0
+123|스라크|벌레/비행|1
+124|루주라|얼음/에스퍼|0
+125|에레브|전기|0
+126|마그마|불꽃|0
+127|쁘사이저|벌레|0
+129|잉어킹|물|1
+130|갸라도스|물/비행|1
+131|라프라스|물/얼음|1
+132|메타몽|노말|1
+133|이브이|노말|1
+134|샤미드|물|1
+135|쥬피썬더|전기|1
+136|부스터|불꽃|1
+137|폴리곤|노말|0
+138|암나이트|바위/물|0
+140|투구|바위/물|0
+142|프테라|바위/비행|0
+143|잠만보|노말|1
+144|프리져|얼음/비행|0
+145|썬더|전기/비행|0
+146|파이어|불꽃/비행|0
+147|미뇽|드래곤|1
+149|망나뇽|드래곤/비행|1
+150|뮤츠|에스퍼|1
+151|뮤|에스퍼|1
+152|치코리타|풀|1
+155|브케인|불꽃|1
+158|리아코|물|1
+162|다꼬리|노말|0
+165|레디바|벌레/비행|0
+166|레디안|벌레/비행|0
+167|페이검|벌레/독|0
+168|아리아도스|벌레/독|0
+175|토게피|페어리|1
+183|마릴|물/페어리|1
+190|에이팜|노말|0
+194|우파|물/땅|1
+196|에브이|에스퍼|1
+197|블래키|악|1
+198|니로우|악/비행|0
+200|무우마|고스트|0
+202|마자용|에스퍼|1
+208|강철톤|강철/땅|0
+212|핫삼|벌레/강철|0
+214|헤라크로스|벌레/격투|0
+220|꾸꾸리|얼음/땅|0
+221|메꾸리|얼음/땅|0
+227|무장조|강철/비행|0
+228|델빌|악/불꽃|0
+229|헬가|악/불꽃|0
+231|코코리|땅|0
+241|밀탱크|노말|0
+248|마기라스|바위/악|1
+249|루기아|에스퍼/비행|1
+250|칠색조|불꽃/비행|0
+252|나무지기|풀|1
+255|아차모|불꽃|1
+258|물짱이|물|1
+261|포챠나|악|0
+262|그라에나|악|0
+280|랄토스|에스퍼/페어리|0
+282|가디안|에스퍼/페어리|1
+299|코코파스|바위|0
+302|깜까미|악/고스트|0
+303|입치트|강철/페어리|0
+311|플러시|전기|0
+312|마이농|전기|0
+320|고래왕자|물|0
+334|파비코리|드래곤/비행|0
+353|어둠대신|고스트|0
+354|다크펫|고스트|0
+355|해골몽|고스트|0
+356|미라몽|고스트|0
+359|앱솔|악|0
+361|눈꼬마|얼음|0
+362|얼음귀신|얼음|0
+376|메타그로스|강철/에스퍼|1
+382|가이오가|물|1
+383|그란돈|땅|1
+384|레쿠쟈|드래곤/비행|1
+387|모부기|풀|1
+390|불꽃숭이|불꽃|1
+393|팽도리|물|1
+401|귀뚤뚜기|벌레|0
+403|꼬링크|전기|1
+415|세꿀버리|벌레/비행|0
+426|둥실라이드|고스트/비행|0
+429|무우마직|고스트|0
+437|동탁군|강철/에스퍼|0
+445|한카리아스|드래곤/땅|1
+447|리오르|격투|1
+448|루카리오|격투/강철|1
+453|삐딱구리|독/격투|0
+454|독개굴|독/격투|0
+462|자포코일|전기/강철|0
+468|토게키스|페어리/비행|0
+470|리피아|풀|1
+471|글레이시아|얼음|1
+478|눈여아|얼음/고스트|0
+495|주리비얀|풀|0
+498|뚜꾸리|불꽃|0
+501|수댕이|물|1
+524|단굴|바위|0
+526|기가이어스|바위|0
+553|악비아르|땅/악|0
+559|곤율랭|악/격투|0
+562|데스마스|고스트|0
+570|조로아|악|1
+571|조로아크|악|0
+582|바닐프티|얼음|0
+587|에몽가|전기/비행|1
+597|철시드|풀/강철|0
+599|기어르|강철|0
+609|샹델라|고스트/불꽃|0
+610|터검니|드래곤|0
+613|코고미|얼음|0
+614|툰베어|얼음|0
+643|레시라무|드래곤/불꽃|0
+644|제크로무|드래곤/전기|0
+650|도치마론|풀|1
+653|푸호꼬|불꽃|1
+656|개구마르|물|1
+658|개굴닌자|물/악|1
+700|님피아|페어리|1
+702|데덴네|전기/페어리|1
+713|크레베이스|얼음|0
+722|나몰빼미|풀/비행|1
+725|냐오불|불꽃|1
+728|누리공|물|1
+744|암멍이|바위|1
+745|루가루암|바위|0
+778|따라큐|고스트/페어리|1
+810|흥나숭|풀|1
+813|염버니|불꽃|1
+816|울머기|물|1
+831|우르|노말|0
+835|멍파치|전기|1
+848|일레즌|전기/독|0
+872|누니머기|얼음/벌레|0
+879|대왕끼리동|강철|0
+906|나오하|풀|1
+907|나로테|풀|0
+908|마스카나|풀/악|1
+909|뜨아거|불꽃|1
+911|라우드본|불꽃/고스트|0
+912|꾸왁스|물|1
+921|빠모|전기|1
+926|쫀도기|페어리|1
+928|미니브|풀/노말|0
+939|찌리배리|전기|1
+957|어리짱|페어리/강철|0
+959|두드리짱|페어리/강철|1
+963|맨돌핀|물|0
+971|망망이|고스트|1
+1007|코라이돈|격투/드래곤|1
+1008|미라이돈|전기/드래곤|1</script>
+<script>
+(()=>{'use strict';
+const rows=document.getElementById('pokemonRows').textContent.trim();
+const all=rows.split('\n').filter(Boolean).map(l=>{let [id,name,ts,easy]=l.split('|');return {id:+id,name,types:ts.split('/'),easy:easy==='1'}}).sort((a,b)=>a.id-b.id);
+const byId=new Map(all.map(p=>[p.id,p]));
+const LEGENDARY=new Set([144,145,146,150,151,249,250,382,383,384,643,644,1007,1008]);
+const TYPEMETA={
+'노말':['⭐','#9ba3ac','#f0f1f2'],'불꽃':['🔥','#e66e3d','#fff1e8'],'물':['💧','#397dd7','#eaf4ff'],'전기':['⚡','#c3a211','#fff9d9'],'풀':['🍃','#4baf73','#eaf8ed'],'얼음':['❄️','#62a9c1','#e9f8ff'],'격투':['🥊','#c76150','#fff0ec'],'독':['☠️','#9553c9','#f4eaff'],'땅':['⛰️','#b68d47','#faf2e2'],'비행':['🪽','#8499dc','#eff3ff'],'에스퍼':['🔮','#c96caa','#ffeafa'],'벌레':['🦋','#809b3d','#f1f8dc'],'바위':['🪨','#9f895d','#f6f0e5'],'고스트':['👻','#8262b1','#f2ecfc'],'드래곤':['🐉','#6d65cb','#efedff'],'악':['🌙','#64657a','#eaeaf1'],'강철':['⚙️','#6e919c','#eaf2f6'],'페어리':['💖','#db85b6','#fff0f9']};
+const TYPES=Object.keys(TYPEMETA);
+const FX={
+'노말':['✨','전광석화 느낌!', '#9ba3ac'],'불꽃':['🔥','불꽃 에너지!', '#f47745'],'물':['💦','물보라 공격!', '#52a5ef'],'전기':['⚡','번개 에너지!', '#ffcf29'],'풀':['🍃','잎사귀 돌풍!', '#55bb6d'],'얼음':['❄️','얼음 바람!', '#7ccfe7'],'격투':['💥','파워 펀치!', '#e48665'],'독':['🫧','독의 구름!', '#a472cb'],'땅':['🌪️','땅울림!', '#c6a16c'],'비행':['🪽','돌풍 공격!', '#90a9ef'],'에스퍼':['🔮','초능력 발동!', '#e59ace'],'벌레':['🍀','벌레 에너지!', '#9fcb52'],'바위':['🪨','바위 돌진!', '#b49a72'],'고스트':['👻','유령 그림자!', '#9a80d4'],'드래곤':['🐲','용의 기운!', '#8b73f2'],'악':['🌙','어둠의 파동!', '#77718d'],'강철':['⚙️','강철의 힘!', '#82b1bf'],'페어리':['💖','반짝이는 요정빛!', '#f0a0cd']};
+const MOVES={25:['10만볼트!','⚡'],26:['10만볼트!','⚡'],4:['불꽃세례!','🔥'],6:['화염방사!','🔥'],7:['물대포!','💦'],9:['하이드로펌프!','💦'],1:['덩굴채찍!','🍃'],3:['솔라빔!','🌞'],39:['노래하기!','🎵'],54:['물대포!','💦'],94:['섀도볼!','👻'],129:['튀어오르기!','💦'],130:['하이드로펌프!','🌊'],133:['전광석화!','✨'],143:['잠자기!','💤'],149:['용의파동!','🐉'],150:['사이코키네시스!','🔮'],151:['사이코키네시스!','🔮'],249:['에어로블라스트!','🪽'],250:['성스러운불꽃!','🔥'],282:['사이코키네시스!','🔮'],382:['근원의파동!','🌊'],383:['단애의칼!','🪨'],384:['화룡점정!','🐉'],445:['지진!','⛰️'],448:['파동탄!','💥'],471:['냉동빔!','❄️'],658:['물수리검!','💧'],700:['문포스!','💖'],778:['치근거리기!','💖'],908:['트릭플라워!','🍃'],911:['플레어송!','🔥'],959:['거대해머!','🔨']};
+const STORAGE='pokemon-quiz-collection-v2';
+let save={owned:[],badges:[],played:0,wins:0};
+try{const x=JSON.parse(localStorage.getItem(STORAGE)||'null');if(x&&Array.isArray(x.owned)&&Array.isArray(x.badges)){save={owned:[...new Set(x.owned.map(Number))].filter(id=>byId.has(id)),badges:[...new Set(x.badges)].filter(t=>TYPES.includes(t)),played:Math.max(0,+x.played||0),wins:Math.max(0,+x.wins||0)}}}catch(e){}
+const $=s=>document.querySelector(s);
+let state={difficulty:'easy',mode:'name',kind:'general',type:null,questions:[],idx:0,score:0,answered:false,activeKind:'name',misses:[],lastReward:null},sound=false,dexFilter='all',detailPokemon=null,attackTimer=0;
+const random=n=>Math.floor(Math.random()*n);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){let j=random(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const names=p=>p.types.join(' · ');
+const art=id=>`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+const altArt=id=>`https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/pokemon/other/official-artwork/${id}.png`;
+function imgSrc(img,id){img.onerror=()=>{img.onerror=null;img.src=altArt(id)};img.src=art(id)}
+function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(save))}catch(e){}}
+function speak(t){if(!sound||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='ko-KR';u.rate=.9;u.pitch=1.12;speechSynthesis.speak(u)}catch(e){}}
+function screen(s){for(const id of ['home','setup','types','game','finish','dex'])$('#'+id).classList.toggle('hidden',id!==s);if(s==='home')renderHome();if(s==='dex')renderDex();window.scrollTo({top:0,behavior:'instant'});}
+function home(){if(!$('#detailOverlay').classList.contains('hidden'))closeDetail();screen('home')}
+function typeCss(t){const m=TYPEMETA[t]||TYPEMETA['노말'];return `--tcolor:${m[1]};--tbg:${m[2]}`}
+function renderBadges(){const target=$('#homeBadgeGrid');target.replaceChildren();TYPES.forEach(t=>{const won=save.badges.includes(t),m=TYPEMETA[t],b=document.createElement('button');b.className='badge'+(won?' earned':'');b.style=typeCss(t);b.title=t+' 타입 '+(won?'획득':'미획득');b.innerHTML=`<span class="em">${m[0]}</span><strong>${t}${won?' ✓':''}</strong>`;b.addEventListener('click',()=>screen('types'));target.appendChild(b)})}
+function dexTile(p){const owned=save.owned.includes(p.id),b=document.createElement('button');b.className='dex-tile '+(owned?'owned':'locked');b.type='button';b.setAttribute('aria-label',owned?p.name+' 상세보기':'미발견 포켓몬');b.innerHTML=`<span class="number">${owned?'#'+String(p.id).padStart(4,'0'):'❔'}</span><img class="sprite" loading="lazy" alt="" ><span class="pname">${owned?p.name:'???'}</span>${owned&&LEGENDARY.has(p.id)?'<span class="rarity-dot" aria-label="전설 또는 환상의 포켓몬">👑</span>':''}`;imgSrc(b.querySelector('img'),p.id);if(owned)b.onclick=()=>openDetail(p);else b.onclick=()=>{b.classList.add('wiggle');setTimeout(()=>b.classList.remove('wiggle'),350)};return b}
+function renderHome(){const n=save.owned.length;$('#homeOwned').textContent=n;$('#homeTotal').textContent=`/ ${all.length}`;$('#homeBadges').textContent=save.badges.length;$('#homeWins').textContent=save.wins;$('#homeMeter').style.width=(100*n/all.length)+'%';renderBadges();const pad=[...save.owned.map(id=>byId.get(id)).filter(Boolean),...all.filter(p=>!save.owned.includes(p.id))].slice(0,12);let g=$('#homeDex');g.replaceChildren();pad.forEach(p=>g.appendChild(dexTile(p)))}
+function renderTypes(){const g=$('#typesGrid');g.replaceChildren();TYPES.forEach(t=>{const m=TYPEMETA[t],won=save.badges.includes(t),num=all.filter(p=>p.types.includes(t)).length,b=document.createElement('button');b.style=typeCss(t);b.className='type-tile'+(won?' earned':'');b.innerHTML=`<span class="em">${m[0]}</span><b>${t} ${won?'🏅':''}</b><small>${won?'뱃지 획득!':num+'마리 등장'}</small>`;b.onclick=()=>startGame('type',t);g.appendChild(b)})}
+function renderDex(){const g=$('#fullDexGrid');g.replaceChildren();const pp=all.filter(p=>dexFilter==='all'||(dexFilter==='owned')===save.owned.includes(p.id));$('#dexStats').textContent=`획득 ${save.owned.length} / ${all.length}마리 · 잠긴 그림자는 퀴즈 보상으로 만날 수 있어!`;$('#dexFilters').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.filter===dexFilter));if(!pp.length){g.innerHTML='<div class="empty">아직 모은 포켓몬이 없어.<br>퀴즈를 풀고 친구를 만나자! 🎁</div>';return}const frag=document.createDocumentFragment();pp.forEach(p=>frag.appendChild(dexTile(p)));g.appendChild(frag)}
+function startGame(kind,type){state.kind=kind;state.type=type||null;let pool=kind==='type'?all.filter(p=>p.types.includes(type)):all.filter(p=>state.difficulty==='all'||p.easy);if(pool.length<1)return;state.questions=shuffle(pool).slice(0,10);while(state.questions.length<10){state.questions.push(...shuffle(pool).slice(0,10-state.questions.length))}state.idx=0;state.score=0;state.answered=false;state.misses=[];state.lastReward=null;screen('game');question()}
+function options(p,kind){let correct=kind==='name'?p.name:names(p),pool;if(kind==='name'){const others=all.filter(x=>x.id!==p.id),close=shuffle(others.filter(x=>Math.abs(x.id-p.id)<35)).slice(0,2),extra=shuffle(others);for(const x of extra){if(close.length>=3)break;if(!close.some(y=>y.id===x.id))close.push(x)}pool=close.map(x=>x.name)}else{const others=[...new Set(all.map(names))].filter(x=>x!==correct),similar=shuffle(others.filter(x=>x.includes(p.types[0]))).slice(0,2);for(const x of shuffle(others)){if(similar.length>=3)break;if(!similar.includes(x))similar.push(x)}pool=similar}return shuffle([correct,...pool.slice(0,3)])}
+function question(){const p=state.questions[state.idx];state.answered=false;state.activeKind=state.kind==='type'?'name':state.mode==='mix'?(state.idx%2===0?'name':'type'):state.mode;const qkind=state.activeKind,tag=state.kind==='type'?`${TYPEMETA[state.type][0]} ${state.type} 뱃지 도전`:qkind==='name'?'이름 맞히기':'타입 맞히기';$('#countLabel').textContent=`${state.idx+1} / 10`;$('#scoreLabel').textContent=`⭐ ${state.score}점`;$('#gameBar').style.width=(state.idx*10)+'%';$('#questionTag').textContent=tag;$('#questionTitle').textContent=qkind==='name'?'이 포켓몬은 누구일까?':'이 포켓몬의 타입은?';$('#quizArt').classList.remove('yay');$('#imageLoad').textContent='그림을 불러오는 중...';$('#imageLoad').classList.remove('hidden');const img=$('#quizImage');img.style.visibility='hidden';img.onload=()=>{img.style.visibility='visible';$('#imageLoad').classList.add('hidden')};img.onerror=()=>{img.onerror=null;img.src=altArt(p.id);img.onerror=()=>{$('#imageLoad').textContent='그림을 못 불러왔어. 인터넷을 확인해 줘.'}};img.src=art(p.id);$('#feedback').className='feed hidden';$('#next').classList.add('hidden');$('#hint').classList.remove('hidden');$('#hint').disabled=false;$('#hint').textContent='💡 힌트 보기';const g=$('#choiceGrid');g.replaceChildren();options(p,qkind).forEach(v=>{let b=document.createElement('button');b.className='choice';b.textContent=v;b.addEventListener('click',()=>choose(v,b));g.appendChild(b)})}
+function choose(value,b){if(state.answered)return;state.answered=true;const p=state.questions[state.idx],right=state.activeKind==='name'?p.name:names(p),ok=value===right;if(ok)state.score++;else state.misses.push(p);for(const opt of $('#choiceGrid').children){opt.disabled=true;if(opt.textContent===right)opt.classList.add('good');else if(opt===b)opt.classList.add('bad')}$('#gameBar').style.width=((state.idx+1)*10)+'%';$('#scoreLabel').textContent=`⭐ ${state.score}점`;$('#quizArt').classList.toggle('yay',ok);$('#hint').classList.add('hidden');const f=$('#feedback');f.className='feed '+(ok?'yes':'no');f.textContent=ok?`🎉 정답! ${p.name} (${names(p)})`:`💛 아까워! 정답은 ${right}!`;$('#next').classList.remove('hidden');$('#next').textContent=state.idx===9?'결과 확인! 🏆':'다음 문제 →';speak(ok?`정답! ${p.name}!`:`정답은 ${right}`)}
+function getReward(){const unowned=all.filter(p=>!save.owned.includes(p.id));if(!unowned.length)return null;const rare=unowned.filter(p=>LEGENDARY.has(p.id)),ordinary=unowned.filter(p=>!LEGENDARY.has(p.id));const drawRare=rare.length&&Math.random()<.08;const list=drawRare?rare:ordinary.length?ordinary:rare;const p=list[random(list.length)];save.owned.push(p.id);return p}
+function finish(){save.played++;const success=state.score>=7;let earnedBadge=false,reward=null;if(success){if(state.kind==='general'){reward=getReward();save.wins++}else if(!save.badges.includes(state.type)){save.badges.push(state.type);earnedBadge=true}}persist();state.lastReward=reward;screen('finish');$('#finishEmoji').textContent=success?(state.kind==='type'?'🏅':'🎉'):'💛';$('#finishTitle').textContent=success?'대성공! 정말 잘했어!':'끝까지 도전한 게 멋져!';$('#finishScore').textContent=`${state.score} / 10`;$('#finishNote').textContent=success?state.kind==='general'?'7문제 이상 정답! 특별한 선물을 열어 보자!':`${state.type} 타입 미션 성공!`:'7문제 이상 맞히면 보상을 받을 수 있어. 다시 해보자!';let slot=$('#rewardSlot');slot.replaceChildren();if(reward){const rare=LEGENDARY.has(reward.id),c=document.createElement('div');c.className='reward'+(rare?' premium':'');c.innerHTML=`<div class="reward-label">${rare?'🌈 전설·환상 포켓몬 등장!':'🎁 새로운 포켓몬 발견!'}</div><img alt="새로 얻은 포켓몬" ><strong>${reward.name}</strong><p>✨ 나만의 도감에 추가됐어!</p><button type="button">기술 애니메이션 보기 ✨</button>`;imgSrc(c.querySelector('img'),reward.id);c.querySelector('button').onclick=()=>openDetail(reward);slot.appendChild(c);speak(`축하해! ${reward.name}을 새로 얻었어!`)}else if(earnedBadge){const m=TYPEMETA[state.type];let div=document.createElement('div');div.className='reward';div.innerHTML=`<div class="reward-label">🏅 새로운 타입 뱃지 획득!</div><div style="font-size:88px;margin:9px">${m[0]}</div><strong>${state.type} 타입 뱃지</strong><p>너는 정말 멋진 포켓몬 박사야!</p>`;slot.appendChild(div);speak(`축하해! ${state.type} 타입 뱃지를 획득했어!`)}else if(success){let msg=document.createElement('div');msg.className='feed yes';msg.textContent=state.kind==='type'?'🏅 이미 이 타입의 뱃지를 가지고 있어!':'🎊 모든 포켓몬을 다 모았어! 도감 완성!';slot.appendChild(msg)}else{let msg=document.createElement('div');msg.className='feed';msg.textContent='다시 도전하면 더 잘할 수 있어! 🍀';slot.appendChild(msg)}let miss=$('#reviewSlot');miss.replaceChildren();if(state.misses.length){let p=document.createElement('p');p.className='fine';p.textContent='📖 복습하기: '+[...new Set(state.misses.map(p=>p.name))].slice(0,10).join(' · ');miss.appendChild(p)}$('#resultRetry').textContent=state.kind==='type'?'같은 타입 다시 도전!':'다시 10문제 도전!'}
+function openDetail(p){if(!save.owned.includes(p.id))return;detailPokemon=p;const type=p.types[0],meta=TYPEMETA[type],fx=FX[type],movie=MOVES[p.id];$('#detailNum').textContent='#'+String(p.id).padStart(4,'0');$('#detailName').textContent=p.name;$('#detailTags').replaceChildren();p.types.forEach(t=>{let s=document.createElement('span');s.className='type-pill';s.style=typeCss(t);s.textContent=TYPEMETA[t][0]+' '+t;$('#detailTags').appendChild(s)});$('#detailLegend').textContent=LEGENDARY.has(p.id)?'👑 전설·환상 포켓몬':'';$('#detailMove').textContent=(movie?movie[1]:fx[0])+' '+(movie?movie[0]:fx[1]);$('#detailMoveSub').textContent='포켓몬이 움직이고 특별한 이펙트가 나와!';const stage=$('#battleStage');stage.style.setProperty('--aura',meta[2]);stage.style.setProperty('--fx',fx[2]);stage.classList.remove('attack');stage.querySelectorAll('.particle,.blast').forEach(e=>e.remove());imgSrc($('#detailImage'),p.id);$('#detailOverlay').classList.remove('hidden');document.body.style.overflow='hidden';speak(p.name+'!');setTimeout(()=>attack(p),250)}
+function attack(p=detailPokemon){if(!p)return;clearTimeout(attackTimer);const stage=$('#battleStage');stage.classList.remove('attack');stage.querySelectorAll('.particle,.blast').forEach(e=>e.remove());void stage.offsetWidth;stage.classList.add('attack');const first=p.types[0],fx=FX[first],symbol=(MOVES[p.id]||[])[1]||fx[0];const burst=document.createElement('span');burst.className='blast';stage.appendChild(burst);for(let i=0;i<18;i++){let a=document.createElement('span');a.className='particle';a.textContent=i%3===0?fx[0]:symbol;const ang=i*2*Math.PI/18+(Math.random()-.5)*.3,d=(85+Math.random()*100);a.style.setProperty('--x',Math.cos(ang)*d+'px');a.style.setProperty('--y',Math.sin(ang)*d+'px');a.style.setProperty('--r',Math.round(Math.random()*700-350)+'deg');a.style.setProperty('--dur',(0.7+Math.random()*.6)+'s');a.style.setProperty('--size',(22+Math.random()*15)+'px');stage.appendChild(a)}$('#detailMoveSub').textContent='✨ 와! 멋진 기술이야! 한 번 더 눌러 봐!';attackTimer=setTimeout(()=>{stage.classList.remove('attack');stage.querySelectorAll('.particle,.blast').forEach(e=>e.remove())},1500)}
+function closeDetail(){$('#detailOverlay').classList.add('hidden');document.body.style.overflow='';clearTimeout(attackTimer);$('#battleStage').classList.remove('attack');}
+$('#brand').onclick=home;document.querySelectorAll('[data-home]').forEach(b=>b.onclick=home);$('#generalGo').onclick=()=>screen('setup');$('#typeGo').onclick=()=>{renderTypes();screen('types')};$('#allTypes').onclick=()=>{renderTypes();screen('types')};$('#allDex').onclick=()=>screen('dex');$('#openDex').onclick=()=>screen('dex');$('#generalStart').onclick=()=>startGame('general');$('#resultHome').onclick=home;$('#resultRetry').onclick=()=>startGame(state.kind,state.type);$('#next').onclick=()=>{if(!state.answered)return;state.idx++;if(state.idx>=10)finish();else question()};$('#hint').onclick=()=>{const p=state.questions[state.idx];$('#hint').textContent=state.activeKind==='name'?`💡 힌트: ${names(p)} 타입!`:`💡 힌트: 이름은 ${p.name}!`;$('#hint').disabled=true};$('#dexFilters').onclick=e=>{const b=e.target.closest('button[data-filter]');if(!b)return;dexFilter=b.dataset.filter;renderDex()};$('#detailClose').onclick=closeDetail;$('#detailOverlay').onclick=e=>{if(e.target===$('#detailOverlay'))closeDetail()};$('#attack').onclick=()=>attack();document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});$('#sound').onclick=()=>{sound=!sound;$('#sound').textContent=sound?'🔊 소리 켬':'🔇 소리 끔';if(sound)speak('포켓몬 척척박사!');else if('speechSynthesis' in window)speechSynthesis.cancel()};
+function segBind(id,key){$(id).onclick=e=>{const b=e.target.closest('button[data-val]');if(!b)return;state[key]=b.dataset.val;$(id).querySelectorAll('.seg').forEach(el=>el.classList.toggle('selected',el===b))}}
+segBind('#difficulty','difficulty');segBind('#quizMode','mode');renderHome();
+})();
+</script>
+</body>
+</html>
